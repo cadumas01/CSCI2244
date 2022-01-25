@@ -18,20 +18,21 @@ def galileo(d, a, b):
 
 # Rounds the sample relative_frequency of x to its nearest 'integer' step
 def prob(x, d):
-    n = math.ceil(400 / d)  # not sure how many rolls to do. Guess: t = 400
+    t = 6**(2*d)
+    n = math.ceil(t / d)  # not sure how many rolls to do.
     arr = sum_dice_roll(n, d)
     prob_step = 1 / (6 ** d)
 
-    x_rel_freq = freq(x,arr)/n
+    x_rel_freq = freq(x, arr)/n
 
     # finds the nearest relative frequency in prob_step units
-    return math.round(x_rel_freq/prob_step) * prob_step
+    return round(x_rel_freq/prob_step) * prob_step
 
 
 # Returns the frequency of x occurring in arr
 def freq(x, arr):
     num_x = np.equal(arr, x)
-    return np.count_nonzero(num_x, x)
+    return np.count_nonzero(num_x)
 
 
 # Creates a d by n array of random integers [1,6]
@@ -54,4 +55,14 @@ def hist(n, d):
     print(bins)
 
 
-# hist(5000000,5)
+if __name__ == "__main__":
+    # hist(5000000,2)
+    zeros = 0
+    not_zeros = 0
+    for i in range(1000):
+        if (galileo(3,10,11)) == 0:
+            zeros = zeros + 1
+        else:
+            not_zeros = not_zeros + 1
+
+    print("Zeros =", zeros, "\n", "Not Zeros =", not_zeros)
