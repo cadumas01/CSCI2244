@@ -14,15 +14,11 @@ def main():
     v_reveal = np.vectorize(reveal)
     v_final_choice = np.vectorize(final_choice)
 
-    print("Winners:\n", winners)
-    print("Choices:\n", choices)
     reveals = v_reveal(winners, choices)
-
     final_choices = v_final_choice(choices,reveals)
 
     # True = not 0
     stays = np.equal(final_choices, choices)
-
 
     wins_stays = np.logical_and((stays != 0), (final_choices - winners == 0))
     win_switches = np.logical_and((stays == 0), (final_choices - winners == 0))
@@ -35,7 +31,6 @@ def main():
 
     print("Stays", n_wins_stays, "/", n_stays, " = ", n_wins_stays/n_stays)
     print("Switches", n_wins_switches, "/", n_switches, " = ", n_wins_switches/n_switches)
-
 
 
 def reveal(winner, choice):
@@ -56,14 +51,12 @@ def final_choice(choice, reveal):
         return 1
 
 
-
-
-
-def randint_exclude(a,b, exclude):
-    x = random.randint(a,b)
+def randint_exclude(a, b, exclude):
+    x = random.randint(a, b)
     while x == exclude:
-        x = random.randint(a,b)
+        x = random.randint(a, b)
 
     return x
+
 
 main()
